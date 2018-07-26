@@ -59,15 +59,19 @@ defmodule HangmanGameTest do
       assert game.turns_left == 6
     end
 
-    test "is a bad guess", context do
-      game = Game.make_move(context[:game], "z")
+    test "is a bad guess" do
+      game =
+        Game.init_game("test")
+        |> Game.make_move("z")
+
       assert game.game_state == :bad_guess
-      assert game.turns_left == 5
+      assert game.turns_left == 6
     end
 
-    test "is a losing guess", context do
+    test "is a losing guess" do
       game =
-        context[:game]
+        Game.init_game("test")
+        |> Game.make_move("x")
         |> Map.put(:turns_left, 1)
         |> Game.make_move("q")
 
