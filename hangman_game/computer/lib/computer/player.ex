@@ -9,28 +9,28 @@ defmodule Computer.Player do
   end
 
   def start do
-    Hangman.new_game()
-    |> make_move(letter_list)
-    |> IO.inspect()
+    Hangman.new_game() |> make_move(letter_list)
   end
 
   def make_move(game = %Hangman.Game{game_state: :won}, _letter_list) do
-    used = game.used
-    word = Enum.join(game.letters, "")
-    IO.puts "The computer won using #{used} for #{word}"
-    exit :normal
+    exit_with_message(
+      "The computer won using #{game.used} for #{Enum.join(game.letters, "")}"
+    )
   end
 
   def make_move(game = %Hangman.Game{game_state: :lost}, _letter_list) do
-    used = game.used
-    word = Enum.join(game.letters, "")
-    IO.puts "The computer lost using #{used} for #{word}"
-    exit :normal
+    exit_with_message(
+      "The computer lost using #{game.used} for #{Enum.join(game.letters, "")}"
+    )
   end
 
   def make_move(game, [guess | rest_of_list]) do
     {game, _tally} = Hangman.make_move(game, guess)
-    IO.inspect game
     make_move(game, rest_of_list)
+  end
+
+  def exit_with_message(msg) do
+    IO.puts msg
+    exit :normal
   end
 end
