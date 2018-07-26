@@ -20,7 +20,7 @@ defmodule Computer.MixProject do
   defp deps do
     [
       {:credo, "~> 0.9.2"},
-      {:text_client, path: "../text_client"},
+      {:hangman, path: "../hangman"},
     ]
   end
 end
