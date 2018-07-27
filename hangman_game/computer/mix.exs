@@ -21,6 +21,7 @@ defmodule Computer.MixProject do
     [
       {:credo, "~> 0.9.2"},
       {:hangman, path: "../hangman"},
+      {:dictionary, path: "../dictionary"},
     ]
   end
 end
