@@ -3,9 +3,10 @@ defmodule Computer.State do
   alias Computer.State
 
   defstruct(
-    word_length: nil,
-    word_list: [],
+    tally:        nil,
+    word_list:    [],
+    word_length:  nil,
     letters_list: [],
-    game_service: nil
+    game_service: nil,
   )
 end

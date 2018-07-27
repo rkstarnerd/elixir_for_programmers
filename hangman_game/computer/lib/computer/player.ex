@@ -31,8 +31,12 @@ defmodule Computer.Player do
 
   def make_move(game, computer) do
 		[guess | rest_of_list] = computer.letters_list
-    {game, _tally} = Hangman.make_move(game, guess)
-    make_move(game, %{computer | letters_list: rest_of_list, game_service: game})
+    {game, tally} = Hangman.make_move(game, guess)
+
+		make_move(
+			game,
+			%{computer | tally: tally, letters_list: rest_of_list, game_service: game}
+		)
   end
 
   def exit_with_message(msg) do

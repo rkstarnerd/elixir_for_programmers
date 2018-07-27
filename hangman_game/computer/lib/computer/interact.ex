@@ -11,8 +11,9 @@ defmodule Computer.Interact do
 
 	def setup_state(game) do
     %State{
-			word_length: nil,
-      word_list:   [],
+			tally:        nil,
+      word_list:    [],
+			word_length:  nil,
       letters_list: [],
       game_service: game
     }
