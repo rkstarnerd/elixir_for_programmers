@@ -3,5 +3,5 @@ defmodule Computer do
   interface for computer app that plays hangman
   """
 
-  defdelegate start(), to: Computer.Player
+  defdelegate start(), to: Computer.Interact
 end
