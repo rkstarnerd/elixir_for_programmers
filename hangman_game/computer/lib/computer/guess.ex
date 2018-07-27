@@ -71,29 +71,33 @@ defmodule Computer.Guess do
 			|> Enum.any?(fn(letter) -> letter != "_" end)
 
 		if any_correct_letters do
-			new_list = reject_based_on_position(new_list, computer)
+			new_list =
+				filter_based_on_position(new_list, computer)
+				|> Enum.map(fn(word) -> Enum.join(word, "") end)
 		end
 
 		%{computer | word_list: new_list}
 	end
 
-	def reject_based_on_position(list, computer) do
-		letters_guessed =
-			computer.tally.correct_letters_guessed
+	def filter_based_on_position(list, computer) do
 		words_to_lists_of_chars =
 			Enum.map(list, fn(word) -> String.codepoints(word) end)
 
 		Enum.filter(words_to_lists_of_chars, fn(word_as_list) ->
-			Enum.map(Range.new(0, computer.word_length-1), fn(index) ->
-				correct_letter = Enum.at(letters_guessed, index)
-				letter_in_word = Enum.at(word_as_list, index)
-				if correct_letter != "_", do: {correct_letter, letter_in_word}
-			end)
+			get_list_with_corresponding_letters(computer, word_as_list)
 			|> Enum.reject(fn(value) -> is_nil(value) end)
 			|> Enum.filter(fn({correct_letter, letter_in_word}) -> correct_letter == letter_in_word end)
 			|> Enum.any?
 		end)
-		|> Enum.map(fn(word) -> Enum.join(word, "") end)
+	end
+
+	def get_list_with_corresponding_letters(computer, word_as_list) do
+		Enum.map(Range.new(0, computer.word_length-1), fn(index) ->
+			letters_guessed = computer.tally.correct_letters_guessed
+			correct_letter = Enum.at(letters_guessed, index)
+			letter_in_word = Enum.at(word_as_list, index)
+			if correct_letter != "_", do: {correct_letter, letter_in_word}
+		end)
 	end
 
 	def remove_used_letters( computer = %{game_service: game, letters_list: letters}) do
