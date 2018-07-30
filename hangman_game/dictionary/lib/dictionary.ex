@@ -1,15 +1,10 @@
 defmodule Dictionary do
-  @moduledoc "functions for dictionary"
+  @moduledoc "api for dictionary"
 
-  def word_list do
-    "../assets/words.txt" |> Path.expand(__DIR__) |> File.read! |> String.split
-  end
+  alias Dictionary.WordList
 
-  def random_word do
-    word_list() |> Enum.random
-  end
-
-  def words_by_length(length) do
-    Enum.filter(word_list(), fn(word) -> String.length(word) == length end)
-  end
+  defdelegate start(),                 to: WordList, as: :word_list
+  defdelegate random_word(),           to: WordList, as: :random_word
+  defdelegate random_word(word_list),  to: WordList, as: :random_word
+  defdelegate words_by_length(length), to: WordList, as: :words_by_length
 end
