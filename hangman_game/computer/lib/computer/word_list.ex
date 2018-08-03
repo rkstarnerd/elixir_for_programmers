@@ -37,8 +37,8 @@ defmodule Computer.WordList do
 
   def filter_based_on_position(list, computer) do
     list
-    |> Enum.map(fn(word) -> String.codepoints(word) end)
-    |> Enum.filter(fn(word_as_list) ->
+    |> Stream.map(fn(word) -> String.codepoints(word) end)
+    |> Stream.filter(fn(word_as_list) ->
       get_words_with_corresponding_letters(computer, word_as_list)
     end)
     |> Enum.map(fn(word) -> Enum.join(word, "") end)
@@ -47,8 +47,8 @@ defmodule Computer.WordList do
   def get_words_with_corresponding_letters(computer, word_as_list) do
     computer
     |> Guess.get_list_with_corresponding_letters(word_as_list)
-    |> Enum.reject(fn(value) -> is_nil(value) end)
-    |> Enum.filter(fn({correct_letter, letter_in_word}) ->
+    |> Stream.reject(fn(value) -> is_nil(value) end)
+    |> Stream.filter(fn({correct_letter, letter_in_word}) ->
       correct_letter == letter_in_word end)
       |> Enum.any?
   end
