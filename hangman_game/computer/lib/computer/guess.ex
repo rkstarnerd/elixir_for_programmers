@@ -27,7 +27,7 @@ defmodule Computer.Guess do
 
   def letters_by_frequency(letters) do
     letters
-    |> Enum.uniq()
+    |> Stream.uniq()
     |> count_letter_frequency(letters)
     |> Enum.sort_by(fn({_k, v}) -> v end)
     |> Enum.reverse()

@@ -39,7 +39,7 @@ defmodule HangmanGameTest do
     test "is a good guess", context do
       good_guess =
         context[:game].letters
-        |> Enum.uniq()
+        |> Stream.uniq()
         |> Enum.random()
 
       game = Game.make_move(context[:game], good_guess)
