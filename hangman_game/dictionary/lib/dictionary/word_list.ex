@@ -7,11 +7,7 @@ defmodule Dictionary.WordList do
     |> String.split
   end
 
-  def random_word do
-    word_list() |> Enum.random
-  end
-
-  def random_word(word_list) do
+  def random_word(word_list \\ word_list()) do
     word_list |> Enum.random
   end
 

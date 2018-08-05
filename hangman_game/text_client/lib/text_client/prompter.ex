@@ -2,8 +2,8 @@ defmodule TextClient.Prompter do
   @moduledoc "prompt for hangman"
 
   def accept_move(game_state) do
-      IO.gets("Your guess: ")
-      |> check_input(game_state)
+    IO.gets("Your guess: ")
+    |> check_input(game_state)
   end
 
   defp check_input({:error, reason}, _game_state) do
