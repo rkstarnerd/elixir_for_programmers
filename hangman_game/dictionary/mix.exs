@@ -13,6 +13,7 @@ defmodule Dictionary.MixProject do
 
   def application do
     [
+      mod: {Dictionary.Application, []},
       extra_applications: [:logger]
     ]
   end

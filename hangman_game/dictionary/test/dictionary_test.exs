@@ -9,9 +9,8 @@ defmodule DictionaryTest do
   end
 
   test "random_word" do
-    word =
-      Dictionary.start()
-      |> Dictionary.random_word()
+    Dictionary.start()
+    word = Dictionary.random_word()
 
     assert word |> is_bitstring() == true
     assert Dictionary.start() |> Enum.member?(word)
